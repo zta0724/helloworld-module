@@ -1,0 +1,95 @@
+$ make
+make -C /usr/src/linux-headers-4.15.0-72-generic M=/home/zta/Desktop/GitHub/helloworld-module/helloworld-template modules
+make[1]: Entering directory '/usr/src/linux-headers-4.15.0-72-generic'
+  CC [M]  /home/zta/Desktop/GitHub/helloworld-module/helloworld-template/helloworld.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/zta/Desktop/GitHub/helloworld-module/helloworld-template/helloworld.mod.o
+  LD [M]  /home/zta/Desktop/GitHub/helloworld-module/helloworld-template/helloworld.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.15.0-72-generic'
+
+$ ll ./helloworld.ko 
+-rw-rw-r-- 1 zta zta 15464 1月   3 19:55 ./helloworld.ko
+
+$ file ./helloworld.ko 
+./helloworld.ko: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), BuildID[sha1]=7100e5a35973b7a4e70191cc5f9dfc067f1635c7, not stripped
+
+$ modinfo ./helloworld.ko 
+filename:       /home/zta/Desktop/GitHub/helloworld-module/helloworld-template/./helloworld.ko
+license:        Dual MIT/GPL
+version:        0.0.1
+author:         zta0724 <zta0724@qq.com>
+description:    https://github.com/zta0724/helloworld-module.git
+srcversion:     41EB3623D305D6361C074A9
+depends:        
+retpoline:      Y
+name:           helloworld
+vermagic:       4.15.0-72-generic SMP mod_unload 
+
+$ sudo insmod ./helloworld.ko 
+$ dmesg 
+[ 2944.801544] [HELLOWORLD] Start initialization.
+[ 2944.801548] [HELLOWORLD] DeviceName: [/dev/helloworld] registered successed. MajorNumber: 239
+[ 2944.801557] [HELLOWORLD] ClassName: [helloworld_class] created successed.
+[ 2944.801630] [HELLOWORLD] DeviceName: [helloworld] created successed.
+
+$ ll /dev/helloworld 
+crw------- 1 root root 239, 0 1月   3 20:24 /dev/helloworld
+
+$ file /dev/helloworld 
+/dev/helloworld: character special (239/0)
+
+$ dmesg 
+[ 4616.465253] [HELLOWORLD] Start initialization.
+[ 4616.465261] [HELLOWORLD] DeviceName: [/dev/helloworld] registered successed. MajorNumber: 239
+[ 4616.465289] [HELLOWORLD] ClassName: [helloworld_class] created successed.
+[ 4616.466534] [HELLOWORLD] DeviceName: [helloworld] created successed.
+[ 4624.711491] [HELLOWORLD] open.
+[ 4624.711620] [HELLOWORLD] ioctl. CMD code: 0x7a00
+[ 4624.711621] [HELLOWORLD] HELP.
+[ 4624.711623] [HELLOWORLD] Description: https://github.com/zta0724/helloworld-module.git
+[ 4624.711624] [HELLOWORLD] Author: zta0724 <zta0724@qq.com>
+[ 4624.711625] [HELLOWORLD] Version: 0.0.1
+[ 4624.711626] [HELLOWORLD] License: Dual MIT/GPL
+[ 4625.235713] [HELLOWORLD] ioctl. CMD code: 0x7a01
+[ 4625.235717] [HELLOWORLD] RESET.
+[ 4625.469880] [HELLOWORLD] ioctl. CMD code: 0x80807a02
+[ 4625.469884] [HELLOWORLD] DIR is R.
+[ 4625.469886] [HELLOWORLD] DESCRIPTION.
+[ 4625.631500] [HELLOWORLD] ioctl. CMD code: 0x80407a03
+[ 4625.631504] [HELLOWORLD] DIR is R.
+[ 4625.631506] [HELLOWORLD] AUTHOR.
+[ 4625.802540] [HELLOWORLD] ioctl. CMD code: 0x80107a04
+[ 4625.802543] [HELLOWORLD] DIR is R.
+[ 4625.802545] [HELLOWORLD] VERSION.
+[ 4626.027822] [HELLOWORLD] ioctl. CMD code: 0x80207a05
+[ 4626.027825] [HELLOWORLD] DIR is R.
+[ 4626.027826] [HELLOWORLD] LICENSE.
+[ 4626.227845] [HELLOWORLD] ioctl. CMD code: 0x80047a06
+[ 4626.227849] [HELLOWORLD] DIR is R.
+[ 4626.227851] [HELLOWORLD] VERBOSE_STATUS.
+[ 4626.489490] [HELLOWORLD] ioctl. CMD code: 0x40047a07
+[ 4626.489493] [HELLOWORLD] DIR is W.
+[ 4626.489494] [HELLOWORLD] VERBOSE_ENABLE.
+[ 4626.489514] [HELLOWORLD] ioctl. CMD code: 0x80047a06
+[ 4626.489515] [HELLOWORLD] DIR is R.
+[ 4626.489516] [HELLOWORLD] VERBOSE_STATUS.
+[ 4626.879931] [HELLOWORLD] ioctl. CMD code: 0xc0447a08
+[ 4626.879934] [HELLOWORLD] DIR is R.
+[ 4626.879936] [HELLOWORLD] TOKEN.
+[ 4626.879956] [HELLOWORLD] ioctl. CMD code: 0xc0447a08
+[ 4626.879957] [HELLOWORLD] DIR is R.
+[ 4626.879958] [HELLOWORLD] TOKEN.
+[ 4626.879970] [HELLOWORLD] ioctl. CMD code: 0xc0447a08
+[ 4626.879971] [HELLOWORLD] DIR is R.
+[ 4626.879972] [HELLOWORLD] TOKEN.
+[ 4626.879987] [HELLOWORLD] ioctl. CMD code: 0xc0447a08
+[ 4626.879988] [HELLOWORLD] DIR is R.
+[ 4626.879989] [HELLOWORLD] TOKEN.
+[ 4626.880008] [HELLOWORLD] flush.
+[ 4626.880012] [HELLOWORLD] release.
+
+$ sudo rmmod helloworld 
+$ dmesg 
+[ 4718.751691] [HELLOWORLD] Start cleaning module.
+[ 4718.753086] [HELLOWORLD] Cleaned up successfully.

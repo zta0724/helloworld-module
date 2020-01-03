@@ -1,0 +1,37 @@
+$ make
+cc -g -Wall main.c -o testHelloWorldModule
+
+$ sudo insmod ./helloworld.ko 
+
+$ sudo ./testHelloWorldModule
+DeviceName: [/dev/helloworld] open successed.
+CMD code: HELP.
+
+CMD code: RESET.
+
+CMD code: DESCRIPTION.
+Description: https://github.com/zta0724/helloworld-module.git
+
+CMD code: AUTHOR.
+Author: zta0724 <zta0724@qq.com>
+
+CMD code: VERSION.
+Version: 0.0.1
+
+CMD code: LICENSE.
+License: Dual MIT/GPL
+
+CMD code: VERBOSE_STATUS.
+GET VerboseStatus: 0
+
+CMD code: VERBOSE_ENABLE.
+SET VerboseStatus: 1
+GET VerboseStatus: 1
+
+CMD code: TOKEN.
+Read Token: Key: zta0724, Salt: zta0724@qq.com
+Update Token finished.
+Check Token: Key: 0123456789, Salt: 9876543210
+Reset Token finished.
+DeviceName: [/dev/helloworld] close successed.
+
